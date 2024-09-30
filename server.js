@@ -1,35 +1,35 @@
-import "dotenv/config"
-import express from "express"
-import cors from "cors"
-import { connectDB } from "./config/db.js"
-import productRouter from "./routes/productRoute.js"
-import userRouter from "./routes/userRoute.js"
-import cartRouter from "./routes/cartRoute.js"
-import orderRouter from "./routes/orderRoute.js"
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import { connectDB } from "./config/db.js";
+import productRouter from "./routes/productRoute.js";
+import userRouter from "./routes/userRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
-//Heroku Deploy
-// app config
-const app = express()
-const port = 4000
+// App config
+const app = express();
+const port = process.env.PORT || 4000;  // Heroku usará process.env.PORT, para desarrollo local usa 4000
 
-// middleware
-app.use(express.json())
-app.use(cors())
+// Middleware
+app.use(express.json());
+app.use(cors());
 
 // DB connection
-connectDB()
+connectDB();
 
-// api endpoints 
-app.use("/api/product", productRouter)
-app.use("/images",express.static('uploads'))
-app.use("/api/user",userRouter)
-app.use("/api/cart",cartRouter)
-app.use("/api/order",orderRouter)
+// API endpoints 
+app.use("/api/product", productRouter);
+app.use("/images", express.static('uploads'));
+app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 
-app.get('/',(req,res)=>{
-    res.send("API IS WORKING")
-})
+app.get('/', (req, res) => {
+    res.send("API IS WORKING");
+});
 
-app.listen(port,()=>{
-    console.log(`Server is running on http://localhost:${port}`)
-})
+// Server listen
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
