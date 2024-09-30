@@ -5,9 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon server.js"
+    "start": "node server.js",     // Script necesario para Heroku
+    "server": "nodemon server.js"  // Para desarrollo local con nodemon
   },
-  "author": "",
+  "author": "Antonio Molina",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -18,8 +19,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.4",
     "stripe": "^16.2.0",
     "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
+
