@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;  // Heroku usará process.env.PORT, para 
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5174',  // Permitir solicitudes solo desde localhost:5174
+    origin: '*',  // Permitir solicitudes solo desde localhost:5174
     credentials: true  // Si necesitas enviar cookies o credenciales entre los dominios
   }));
 
