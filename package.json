@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",     // Script necesario para Heroku
-    "server": "nodemon server.js"  // Para desarrollo local con nodemon
+    "start": "node server.js",  
+    "server": "nodemon server.js"
   },
   "author": "Antonio Molina",
   "license": "ISC",
