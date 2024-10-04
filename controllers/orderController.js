@@ -1,56 +1,7 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
-// import Stripe from "stripe";
 
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// placing user order for frontend
-// const placeOrder = async (req, res) => {
-//   const frontend_url = "http://localhost:5174";
-//   try {
-//     const newOrder = new orderModel({
-//       userId: req.body.userId,
-//       items: req.body.items,
-//       amount: req.body.amount,
-//       address: req.body.address,
-//     });
-//     await newOrder.save();
-//     await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
-
-//     const line_items = req.body.items.map((item) => ({
-//       price_data: {
-//         currency: "pkr",
-//         product_data: {
-//           name: item.name,
-//         },
-//         unit_amount: item.price * 100 * 278,
-//       },
-//       quantity: item.quantity,
-//     }));
-//     line_items.push({
-//       price_data: {
-//         currency: "pkr",
-//         product_data: {
-//           name: "Delivery Charges",
-//         },
-//         unit_amount: 2 * 100 * 278,
-//       },
-//       quantity: 1,
-//     });
-
-//     const session = await stripe.checkout.sessions.create({
-//       line_items: line_items,
-//       mode: "payment",
-//       success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
-//       cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
-//     });
-//     res.json({ success: true, session_url: session.url });
-//   } catch (error) {
-//     console.log(error);
-//     res.json({ success: false, message: "Error" });
-//   }
-// };
-// placing user order for frontend (sin Stripe)
 const placeOrder = async (req, res) => {
   const frontend_url = "http://localhost:5174";
   try {
@@ -71,18 +22,16 @@ const placeOrder = async (req, res) => {
     // Enviar respuesta de éxito al frontend
     res.json({
       success: true,
-      message: "Order placed successfully",
+      message: "Orden registrada satisfactoriamente",
       orderId: newOrder._id,
     });
 
-    // O si quieres redirigir a una URL del frontend con el ID de la orden
-    // res.redirect(`${frontend_url}/order-confirmation?orderId=${newOrder._id}`);
 
   } catch (error) {
     console.log(error);
     res.status(500).json({
       success: false,
-      message: "Error placing order",
+      message: "Error al registrar orden",
     });
   }
 };
@@ -93,10 +42,10 @@ const verifyOrder = async(req,res)=>{
   try {
     if(success=="true"){
       await orderModel.findByIdAndUpdate(orderId,{payment:true});
-      res.json({success:true,message:"Paid"})
+      res.json({success:true,message:"Pagado"})
     }else{
       await orderModel.findByIdAndDelete(orderId)
-      res.json({success:false,message:"Not paid"})
+      res.json({success:false,message:"No pagado"})
     }
   } catch (error) {
     console.log(error)
