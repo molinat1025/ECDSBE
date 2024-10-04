@@ -12,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 4000;  // Heroku usará process.env.PORT, para desarrollo local usa 4000
 // Lista de orígenes permitidos
 const allowedOrigins = [
+    'http://localhost:5173',
     'http://localhost:5174', // Frontend administrativo en localhost
     'https://dsecommerce-pg2-b83249af3924.herokuapp.com' // Frontend de clientes en Heroku
   ];
